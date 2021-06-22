@@ -19,7 +19,7 @@ class Solution{
         int *get_counts_array(int arr[], int n){
 
             int max_val = *max_element(arr,arr+n);
-            int *occurence = new int[max_val];
+            int *occurence = new int[max_val+1];
             result = new int[n];
 
             // Tracing Every Number's Occurencee //
@@ -27,7 +27,7 @@ class Solution{
                 occurence[arr[i]] += 1;
 
             // getting the count of numbers <= input_arr[i] //
-            for(int i=0;i<max_val;i++)
+            for(int i=1;i<=max_val;i++)
                 occurence[i] += occurence[i-1];
 
             // Storing the result //
