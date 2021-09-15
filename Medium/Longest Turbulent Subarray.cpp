@@ -9,28 +9,14 @@ class Solution {
 public:
     int maxTurbulenceSize(vector<int>& arr) {
         
-        int ans = 0, n = arr.size(), count;
-        char sig;
+        int S=1, B=1, ans=1;
         
-        for(int i=0;i<n;i++){
+        for(int i=arr.size()-2; i>=0; i--){
             
-            count=1, sig='S';
-            for(int j=i+1;j<n;j++){
-                
-                if( sig=='B' && arr[j] > arr[j-1] ) count++, sig='S';
-                else if( sig=='S' && arr[j] < arr[j-1] ) count++, sig='B';
-                else break;
-            }
-            ans = max(ans, count);
-            
-            count=1, sig='B';
-            for(int j=i+1;j<n;j++){
-                
-                if( sig=='B' && arr[j] > arr[j-1] ) count++, sig='S';
-                else if( sig=='S' && arr[j] < arr[j-1] ) count++, sig='B';
-                else break;
-            }
-            ans = max(ans, count);
+            if( arr[i] < arr[i+1] ) S = 1 + B, B = 1;
+            else if( arr[i] > arr[i+1] ) B = 1 + S, S = 1;
+            else S=1, B=1;
+            ans = max(ans, max(S, B));
         }
         return ans;
     }
