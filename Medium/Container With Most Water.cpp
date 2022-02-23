@@ -1,31 +1,21 @@
 
 
-// Question Link :: "https://practice.geeksforgeeks.org/problems/container-with-most-water0535/1"
+// Question Link :: "https://leetcode.com/problems/container-with-most-water/"
 
 
 
 // Solution //
 
-long long maxArea(long long arr[], int n)
-{
-    // Your code goes here
-
-    long long int maxans = 0;
-    
-    for(int i=0;i<n;i++){
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
         
-        int j = 0; 
-        while(arr[j] < arr[i] && j<i)
-            j++;
+        int maxWater = 0, left = 0, right = height.size()-1;
         
-        maxans = max(maxans, (abs(i-j)*arr[i]));
-        j = n-1;
-        
-        while(arr[j] < arr[i] && j>i)
-            j--;
-        
-        maxans = max(maxans, (abs(i-j)*arr[i]));
+        while(left<right){
+            maxWater = max(maxWater, ( min(height[left], height[right]) * (right-left) ));
+            (height[left] <= height[right])? (left++) : (right--);
+        }
+        return maxWater;
     }
-    
-    return maxans;
-}
+};
